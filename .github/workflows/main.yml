@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,4 +29,17 @@ jobs:
          tags: |
           gweisheimer/rotten-potatoes:latest
           gweisheimer/rotten-potatoes:${{ github.run_number}}
-          
+  CD:        
+    runs-on: ubuntu-latest
+    
+    steps:
+     - uses: actions/checkout@v3
+     
+     - name: Kubernetes Set Context
+       uses: Azure/k8s-set-context@v1.1
+       with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
+  
+  
+  
