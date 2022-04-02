@@ -9,7 +9,6 @@ on:
 
 jobs:
   CI:
-    needs: [CI]
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +29,8 @@ jobs:
          tags: |
           gweisheimer/rotten-potatoes:latest
           gweisheimer/rotten-potatoes:${{ github.run_number}}
-  CD:        
+  CD:   
+    needs: [CI]
     runs-on: ubuntu-latest
     
     steps:
