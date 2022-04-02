@@ -5,6 +5,7 @@ kind: Deployment
 metadata:
  name: mongodb
 spec:
+ replicas: 3
  selector:
   matchLabels:
    app: mongodb
@@ -45,6 +46,7 @@ kind: Deployment
 metadata:
  name: rotten-potatoes
 spec:
+ replicas: 3
  selector:
   matchLabels:
    app: rotten-potatoes
@@ -84,4 +86,4 @@ spec:
  - port: 80
    targetPort: 5000
    nodePort: 30000
- type: NodePort
+ type: LoadBalancer
