@@ -9,6 +9,7 @@ on:
 
 jobs:
   CI:
+    needs: [CI]
     runs-on: ubuntu-latest
 
     steps:
