@@ -1,0 +1,37 @@
+version: '3.5'
+
+services:
+  mongodb:
+    image: mongo:5.0.5
+    container_name: mongodb
+    restart: on-failure
+    volumes:
+      - mongo-vol:/data/db
+    networks:
+      - rotten-potatoes-net
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: mongopwd
+    
+  rotten-potatoes:
+    image: gweisheimer/rotten-potatoes:v1
+    container_name: rotten-potatoes
+    restart: on-failure
+    ports:
+      - 5000:5000
+    networks:
+      - rotten-potatoes-net
+    environment:
+      MONGODB_DB: admin
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: "27017"
+      MONGODB_USERNAME: mongouser
+      MONGODB_PASSWORD: mongopwd
+
+volumes:
+    mongo-vol:
+
+networks:
+    rotten-potatoes-net:
+      name: rotten-potatoes-net
+      driver: bridge
